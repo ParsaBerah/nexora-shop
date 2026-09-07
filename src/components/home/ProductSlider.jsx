@@ -9,13 +9,13 @@ const products = [
     oldPrice: 257634700,
     price: 237300000,
     discount: '۸٪',
-    image: 'src/assets/product-ps5.png',
+    image: 'assets//product-ps5.png',
   },
   {
     id: 102,
     title: 'لپ تاپ لنوو مدل LOQ 15IRX9 با پردازنده Core i7',
     price: 216900000,
-    image: 'src/assets/product-loq.png',
+    image: 'assets//product-loq.png',
   },
   {
     id: 103,
@@ -23,7 +23,7 @@ const products = [
     oldPrice: 169000000,
     price: 167300000,
     discount: '۱٪',
-    image: 'src/assets/product-victus.png',
+    image: 'assets//product-victus.png',
   },
   {
     id: 104,
@@ -31,7 +31,7 @@ const products = [
     oldPrice: 342000000,
     price: 324900000,
     discount: '۹٪',
-    image: 'src/assets/product-tuf.png',
+    image: 'assets//product-tuf.png',
   },
   {
     id: 105,
@@ -39,7 +39,7 @@ const products = [
     oldPrice: 169000000,
     price: 167300000,
     discount: '۱٪',
-    image: 'src/assets/product-victus2.png',
+    image: 'assets//product-victus2.png',
   },
 ];
 

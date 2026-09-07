@@ -1,12 +1,12 @@
 import React from 'react';
 
 const brands = [
-  { id: 1, name: 'Apple', logo: 'src/assets/brand-apple.svg' },
-  { id: 2, name: 'Sony', logo: 'src/assets/brand-amd.svg' },
-  { id: 3, name: 'Samsung', logo: 'src/assets/brand-rog.svg' },
-  { id: 4, name: 'Asus', logo: 'src/assets/brand-asus.svg' },
-  { id: 5, name: 'Logitech', logo: 'src/assets/brand-intel.svg' },
-  { id: 6, name: 'Anker', logo: 'src/assets/brand-xiaomi.svg' },
+  { id: 1, name: 'Apple', logo: 'assets//brand-apple.svg' },
+  { id: 2, name: 'Sony', logo: 'assets//brand-amd.svg' },
+  { id: 3, name: 'Samsung', logo: 'assets//brand-rog.svg' },
+  { id: 4, name: 'Asus', logo: 'assets//brand-asus.svg' },
+  { id: 5, name: 'Logitech', logo: 'assets//brand-intel.svg' },
+  { id: 6, name: 'Anker', logo: 'assets//brand-xiaomi.svg' },
 ];
 
 export default function PopularBrands() {
