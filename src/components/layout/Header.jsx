@@ -4,10 +4,15 @@ import { useCart } from '../../context/CartContext';
 import MobileMenu from './MobileMenu';
 import MegaMenuDesktop from './MegaMenuDesktop';
 
-export default function Header() {
+export default function Header({ onLogoClick, onShopClick }) {
   const { totalCount, setIsCartOpen } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMegaMenuHovered, setIsMegaMenuHovered] = useState(false);
+
+  const handleCategoryClick = () => {
+    setIsMegaMenuHovered(false);
+    if (onShopClick) onShopClick();
+  };
 
   return (
     <>
@@ -24,9 +29,13 @@ export default function Header() {
               <Menu className="w-6 h-6" />
             </button>
 
-            <a href="#" className="font-black text-2xl tracking-[1.5px] text-black">
+            {/* لوگو: کلیک روی آن به صفحه اصلی بازمی‌گرداند */}
+            <button
+              onClick={onLogoClick}
+              className="font-black text-2xl tracking-[1.5px] text-black cursor-pointer select-none"
+            >
               NEXORA
-            </a>
+            </button>
 
             <nav className="hidden lg:flex items-center gap-7">
               
@@ -36,22 +45,30 @@ export default function Header() {
                 onMouseEnter={() => setIsMegaMenuHovered(true)}
                 onMouseLeave={() => setIsMegaMenuHovered(false)}
               >
-                <button className="flex items-center gap-1.5 text-[14.5px] font-bold text-gray-900 hover:text-black transition">
+                <button
+                  onClick={handleCategoryClick}
+                  className="flex items-center gap-1.5 text-[14.5px] font-bold text-gray-900 hover:text-black transition cursor-pointer"
+                >
                   <span>دسته‌بندی‌ها</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      isMegaMenuHovered ? 'rotate-180 text-blue-600' : ''
+                      isMegaMenuHovered ? 'rotate-180 text-black' : ''
                     }`}
                   />
                 </button>
 
-                {/* نمایش مگامنو با هاور */}
-                {isMegaMenuHovered && <MegaMenuDesktop />}
+                {/* نمایش مگامنو با هاور و انتقال تابع کلیک به آیتم‌های داخلی آن */}
+                {isMegaMenuHovered && (
+                  <MegaMenuDesktop onCategorySelect={handleCategoryClick} />
+                )}
               </div>
 
-              <a href="#" className="text-[14.5px] font-bold text-gray-900 hover:text-gray-500 transition">
+              <button
+                onClick={onShopClick}
+                className="text-[14.5px] font-bold text-gray-900 hover:text-gray-500 transition cursor-pointer"
+              >
                 تخفیف‌ها
-              </a>
+              </button>
               <a href="#" className="text-[14.5px] font-bold text-gray-900 hover:text-gray-500 transition">
                 راهنمای خرید
               </a>
@@ -88,8 +105,15 @@ export default function Header() {
         </div>
       </header>
 
-      {/* منوی کشویی موبایل */}
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      {/* منوی کشویی موبایل با اتصال رویداد باز شدن صفحه فروشگاه */}
+      <MobileMenu 
+        isOpen={isMobileMenuOpen} 
+        onClose={() => setIsMobileMenuOpen(false)} 
+        onShopClick={() => {
+          setIsMobileMenuOpen(false);
+          if (onShopClick) onShopClick();
+        }}
+      />
     </>
   );
 }

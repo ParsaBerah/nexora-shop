@@ -30,7 +30,7 @@ export default function BuyingGuide() {
           >
             <div className="w-full rounded-[28px] sm:rounded-[36px] overflow-hidden">
               <img
-                src="assets//guide-headphones.jpg"
+                src="assets//guide-headphones.webp"
                 alt="خرید بهترین هدفون برای موسیقی"
                 className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                 loading="lazy"
@@ -45,7 +45,7 @@ export default function BuyingGuide() {
           >
             <div className="w-full rounded-[28px] sm:rounded-[36px] overflow-hidden">
               <img
-                src="assets//guide-powerbank.jpg"
+                src="assets//guide-powerbank.webp"
                 alt="خرید بهترین پاوربانک برای آیفون"
                 className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                 loading="lazy"

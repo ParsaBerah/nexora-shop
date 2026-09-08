@@ -9,7 +9,7 @@ export default function ShowcaseBanners() {
         {/* بنر اول */}
         <div 
           className="relative rounded-[36px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-8 sm:p-10 flex flex-col justify-between bg-[#0e1726] bg-cover bg-center group transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-2xl shadow-black/10"
-          style={{ backgroundImage: "url('assets//lifestyle-gamers.jpg')" }}
+          style={{ backgroundImage: "url('assets//lifestyle-gamers.webp')" }}
         >
           <div className="max-w-[280px] z-10">
             <span className="text-xs font-black tracking-wider text-rose-500 uppercase mb-2 block">
@@ -34,7 +34,7 @@ export default function ShowcaseBanners() {
         {/* بنر دوم */}
         <div 
           className="relative rounded-[36px] overflow-hidden min-h-[260px] sm:min-h-[300px] p-8 sm:p-10 flex flex-col justify-between bg-[#1f2937] bg-cover bg-center group transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-2xl shadow-black/10"
-          style={{ backgroundImage: "url('assets//lifestyle-workspace.jpg')" }}
+          style={{ backgroundImage: "url('assets//lifestyle-workspace.webp')" }}
         >
           <div className="max-w-[280px] z-10">
             <span className="text-xs font-black tracking-wider text-blue-400 uppercase mb-2 block">

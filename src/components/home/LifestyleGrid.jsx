@@ -5,17 +5,17 @@ const lifestyles = [
   {
     id: 1,
     title: 'مخصوص گیمینگ و استریم',
-    image: 'assets//lifestyle-gamers.jpg',
+    image: 'assets//lifestyle-gamers.webp',
   },
   {
     id: 2,
     title: 'ست اداری و مینیمال دسکتاپ',
-    image: 'assets//lifestyle-workspace.jpg',
+    image: 'assets//lifestyle-workspace.webp',
   },
   {
     id: 3,
     title: 'ورزش و فعالیت‌های روزمره',
-    image: 'assets//lifestyle-smart-home.jpg',
+    image: 'assets//lifestyle-smart-home.webp',
   },
 ];
 

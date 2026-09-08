@@ -1,17 +1,17 @@
 import React from 'react';
 
 const categories = [
-  { id: 1, title: 'گوشی', image: 'assets//category-phone.png' },
-  { id: 2, title: 'لپ‌تاپ', image: 'assets//category-laptop.png' },
-  { id: 3, title: 'هندزفری', image: 'assets//category-headphone.png' },
-  { id: 4, title: 'کنسول بازی', image: 'assets//category-console.png' },
-  { id: 5, title: 'اداری', image: 'assets//category-office.png' },
-  { id: 6, title: 'ساعت هوشمند', image: 'assets//category-watch.png' },
-  { id: 7, title: 'کیبورد', image: 'assets//category-keyboard.png' },
-  { id: 8, title: 'پاوربانک', image: 'assets//category-powerbank.png' },
-  { id: 9, title: 'موس', image: 'assets//category-mouse.png' },
-  { id: 10, title: 'دوربین', image: 'assets//category-camera.png' },
-  { id: 11, title: 'کاور گوشی', image: 'assets//category-case.png' },
+  { id: 1, title: 'گوشی', image: 'assets//category-phone.webp' },
+  { id: 2, title: 'لپ‌تاپ', image: 'assets//category-laptop.webp' },
+  { id: 3, title: 'هندزفری', image: 'assets//category-headphone.webp' },
+  { id: 4, title: 'کنسول بازی', image: 'assets//category-console.webp' },
+  { id: 5, title: 'اداری', image: 'assets//category-office.webp' },
+  { id: 6, title: 'ساعت هوشمند', image: 'assets//category-watch.webp' },
+  { id: 7, title: 'کیبورد', image: 'assets//category-keyboard.webp' },
+  { id: 8, title: 'پاوربانک', image: 'assets//category-powerbank.webp' },
+  { id: 9, title: 'موس', image: 'assets//category-mouse.webp' },
+  { id: 10, title: 'دوربین', image: 'assets//category-camera.webp' },
+  { id: 11, title: 'کاور گوشی', image: 'assets//category-case.webp' },
 ];
 
 export default function CategoryGrid() {

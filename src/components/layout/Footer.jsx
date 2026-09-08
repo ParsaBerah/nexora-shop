@@ -128,10 +128,10 @@ export default function Footer() {
 
             <div className="flex items-center gap-3">
               <div className="w-14 h-14 bg-zinc-900 border border-zinc-800 rounded-2xl p-2 flex items-center justify-center">
-                <img src="/assets/enamad.png" alt="اینماد" className="max-h-full max-w-full object-contain" />
+                <img src="/assets/enamad.webp" alt="اینماد" className="max-h-full max-w-full object-contain" />
               </div>
               <div className="w-14 h-14 bg-zinc-900 border border-zinc-800 rounded-2xl p-2 flex items-center justify-center">
-                <img src="/assets/ecunion.png" alt="اتحادیه کسب و کارهای مجازی" className="max-h-full max-w-full object-contain" />
+                <img src="/assets/ecunion.webp" alt="اتحادیه کسب و کارهای مجازی" className="max-h-full max-w-full object-contain" />
               </div>
             </div>
           </div>

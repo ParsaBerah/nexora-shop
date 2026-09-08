@@ -9,13 +9,13 @@ const products = [
     oldPrice: 257634700,
     price: 237300000,
     discount: '۸٪',
-    image: 'assets//product-ps5.png',
+    image: 'assets/product-ps5.webp',
   },
   {
     id: 102,
     title: 'لپ تاپ لنوو مدل LOQ 15IRX9 با پردازنده Core i7',
     price: 216900000,
-    image: 'assets//product-loq.png',
+    image: 'assets/product-loq.webp',
   },
   {
     id: 103,
@@ -23,7 +23,7 @@ const products = [
     oldPrice: 169000000,
     price: 167300000,
     discount: '۱٪',
-    image: 'assets//product-victus.png',
+    image: 'assets/product-victus.webp',
   },
   {
     id: 104,
@@ -31,7 +31,7 @@ const products = [
     oldPrice: 342000000,
     price: 324900000,
     discount: '۹٪',
-    image: 'assets//product-tuf.png',
+    image: 'assets/product-tuf.webp',
   },
   {
     id: 105,
@@ -39,11 +39,11 @@ const products = [
     oldPrice: 169000000,
     price: 167300000,
     discount: '۱٪',
-    image: 'assets//product-victus2.png',
+    image: 'assets/product-victus2.webp',
   },
 ];
 
-export default function ProductSlider() {
+export default function ProductSlider({ onProductClick, onSeeAllClick }) {
   const { addToCart } = useCart();
   const sliderRef = useRef(null);
 
@@ -56,13 +56,14 @@ export default function ProductSlider() {
           <h2 className="text-xl sm:text-2xl font-black text-[#0b0b0b]">
             پرفروش‌ترین
           </h2>
-          <a
-            href="#"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-gray-800 hover:text-black transition-colors"
+          <button
+            type="button"
+            onClick={onSeeAllClick}
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-gray-800 hover:text-black transition-colors cursor-pointer"
           >
             <span>مشاهده همه</span>
             <ChevronLeft className="w-4 h-4" />
-          </a>
+          </button>
         </div>
 
         {/* اسلایدر افقی کارت‌ها */}
@@ -74,14 +75,15 @@ export default function ProductSlider() {
           {products.map((item) => (
             <div
               key={item.id}
-              className="flex-shrink-0 w-[240px] sm:w-[260px] bg-white border border-gray-200/80 rounded-3xl p-5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
+              onClick={onProductClick}
+              className="cursor-pointer flex-shrink-0 w-[240px] sm:w-[260px] bg-white border border-gray-200/80 rounded-3xl p-5 flex flex-col justify-between hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
             >
               {/* عکس محصول */}
               <div className="w-full h-44 flex items-center justify-center mb-4">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full object-contain pointer-events-none"
                   loading="lazy"
                 />
               </div>
@@ -94,8 +96,12 @@ export default function ProductSlider() {
               {/* قیمت و دکمه افزودن به سبد خرید */}
               <div className="flex items-end justify-between pt-2">
                 <button
-                  onClick={() => addToCart(item)}
-                  className="w-10 h-10 rounded-xl bg-black hover:bg-zinc-800 text-white flex items-center justify-center transition-all duration-200 active:scale-95 shadow-md shadow-black/10"
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addToCart(item);
+                  }}
+                  className="w-10 h-10 rounded-xl bg-black hover:bg-zinc-800 text-white flex items-center justify-center transition-all duration-200 active:scale-95 shadow-md shadow-black/10 z-10 cursor-pointer"
                   aria-label="افزودن به سبد خرید"
                 >
                   <ShoppingBag className="w-4 h-4 stroke-[2]" />

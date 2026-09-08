@@ -7,7 +7,7 @@ export default function HeroSection() {
       <div className="max-w-[1380px] mx-auto">
         <div 
           className="w-full min-h-[460px] md:min-h-[520px] rounded-[28px] sm:rounded-[36px] bg-[#f2f3f5] bg-cover bg-center md:bg-[left_center] bg-no-repeat flex items-center p-6 sm:p-14 lg:p-18 relative overflow-hidden"
-          style={{ backgroundImage: "url('assets//hero-banner.jpg')" }}
+          style={{ backgroundImage: "url('assets//hero-banner.webp')" }}
         >
           {/* لایه محافظ نیمه‌شفاف برای خوانایی متن در موبایل */}
           <div className="absolute inset-0 bg-white/80 md:bg-transparent backdrop-blur-[2px] md:backdrop-blur-none -z-0 pointer-events-none" />
