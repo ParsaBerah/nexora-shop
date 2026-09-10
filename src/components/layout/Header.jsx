@@ -4,7 +4,7 @@ import { useCart } from '../../context/CartContext';
 import MobileMenu from './MobileMenu';
 import MegaMenuDesktop from './MegaMenuDesktop';
 
-export default function Header({ onLogoClick, onShopClick }) {
+export default function Header({ onLogoClick, onShopClick, onSearchClick, onAuthClick }) {
   const { totalCount, setIsCartOpen } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMegaMenuHovered, setIsMegaMenuHovered] = useState(false);
@@ -23,13 +23,13 @@ export default function Header({ onLogoClick, onShopClick }) {
           <div className="flex items-center gap-6 sm:gap-10">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-1.5 text-black hover:bg-gray-100 rounded-lg transition"
+              className="lg:hidden p-1.5 text-black hover:bg-gray-100 rounded-lg transition cursor-pointer"
               aria-label="منو"
             >
               <Menu className="w-6 h-6" />
             </button>
 
-            {/* لوگو: کلیک روی آن به صفحه اصلی بازمی‌گرداند */}
+            {/* لوگو */}
             <button
               onClick={onLogoClick}
               className="font-black text-2xl tracking-[1.5px] text-black cursor-pointer select-none"
@@ -38,8 +38,7 @@ export default function Header({ onLogoClick, onShopClick }) {
             </button>
 
             <nav className="hidden lg:flex items-center gap-7">
-              
-              {/* دکمه دسته‌بندی‌ها متصل به مگامنو دسکتاپ */}
+              {/* دسته‌بندی‌ها */}
               <div
                 className="relative py-2"
                 onMouseEnter={() => setIsMegaMenuHovered(true)}
@@ -57,7 +56,6 @@ export default function Header({ onLogoClick, onShopClick }) {
                   />
                 </button>
 
-                {/* نمایش مگامنو با هاور و انتقال تابع کلیک به آیتم‌های داخلی آن */}
                 {isMegaMenuHovered && (
                   <MegaMenuDesktop onCategorySelect={handleCategoryClick} />
                 )}
@@ -69,6 +67,7 @@ export default function Header({ onLogoClick, onShopClick }) {
               >
                 تخفیف‌ها
               </button>
+              
               <a href="#" className="text-[14.5px] font-bold text-gray-900 hover:text-gray-500 transition">
                 راهنمای خرید
               </a>
@@ -80,13 +79,19 @@ export default function Header({ onLogoClick, onShopClick }) {
 
           {/* سمت چپ: ابزارها */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <button className="p-2 text-black hover:bg-gray-100 rounded-full transition" aria-label="جستجو">
+            {/* دکمه جستجو با رویداد کلیک */}
+            <button 
+              onClick={onSearchClick}
+              className="p-2 text-black hover:bg-gray-100 rounded-full transition cursor-pointer" 
+              aria-label="جستجو"
+            >
               <Search className="w-5 h-5 stroke-[2]" />
             </button>
 
+            {/* دکمه سبد خرید */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="p-2 text-black hover:bg-gray-100 rounded-full transition relative"
+              className="p-2 text-black hover:bg-gray-100 rounded-full transition relative cursor-pointer"
               aria-label="سبد خرید"
             >
               <ShoppingBag className="w-5 h-5 stroke-[2]" />
@@ -97,7 +102,12 @@ export default function Header({ onLogoClick, onShopClick }) {
               )}
             </button>
 
-            <button className="p-2 text-black hover:bg-gray-100 rounded-full transition" aria-label="حساب کاربری">
+            {/* دکمه حساب کاربری با رویداد کلیک */}
+            <button 
+              onClick={onAuthClick}
+              className="p-2 text-black hover:bg-gray-100 rounded-full transition cursor-pointer" 
+              aria-label="حساب کاربری"
+            >
               <User className="w-5 h-5 stroke-[2]" />
             </button>
           </div>
@@ -105,7 +115,7 @@ export default function Header({ onLogoClick, onShopClick }) {
         </div>
       </header>
 
-      {/* منوی کشویی موبایل با اتصال رویداد باز شدن صفحه فروشگاه */}
+      {/* منوی کشویی موبایل */}
       <MobileMenu 
         isOpen={isMobileMenuOpen} 
         onClose={() => setIsMobileMenuOpen(false)} 

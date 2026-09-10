@@ -1,8 +1,9 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
+export function CartProvider({ children }) {
+  // خواندن سبد اولیه از localStorage در صورت وجود
   const [cartItems, setCartItems] = useState(() => {
     try {
       const saved = localStorage.getItem('nexora_cart');
@@ -14,51 +15,78 @@ export const CartProvider = ({ children }) => {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  // ذخیره خودکار در localStorage با هر تغییر در سبد
   useEffect(() => {
-    localStorage.setItem('nexora_cart', JSON.stringify(cartItems));
+    try {
+      localStorage.setItem('nexora_cart', JSON.stringify(cartItems));
+    } catch (e) {
+      console.error('Failed to save cart to localStorage', e);
+    }
   }, [cartItems]);
 
+  // افزودن به سبد خرید
   const addToCart = (product) => {
-    setCartItems((prev) => {
-      const exists = prev.find((item) => item.id === product.id);
-      if (exists) {
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+    setCartItems((prevItems) => {
+      const existing = prevItems.find((item) => item.id === product.id);
+      if (existing) {
+        return prevItems.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      return [...prev, { ...product, qty: 1 }];
+      return [
+        ...prevItems,
+        {
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          image: product.image || product.images?.[0] || 'assets/product-tuf.webp',
+          quantity: 1,
+        },
+      ];
     });
-    setIsCartOpen(true);
   };
 
+  // افزایش تعداد
+  const increaseQuantity = (id) => {
+    setCartItems((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item))
+    );
+  };
+
+  // کاهش تعداد (اگر ۱ باشد حذف می‌شود)
+  const decreaseQuantity = (id) => {
+    setCartItems((prev) =>
+      prev
+        .map((item) => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item))
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  // حذف کامل آیتم
   const removeFromCart = (id) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const updateQuantity = (id, delta) => {
-    setCartItems((prev) =>
-      prev
-        .map((item) => {
-          if (item.id === id) {
-            const newQty = item.qty + delta;
-            return newQty > 0 ? { ...item, qty: newQty } : null;
-          }
-          return item;
-        })
-        .filter(Boolean)
-    );
+  // خالی کردن کامل سبد
+  const clearCart = () => {
+    setCartItems([]);
   };
 
-  const totalCount = cartItems.reduce((acc, item) => acc + item.qty, 0);
+  // محاسبات
+  const totalCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <CartContext.Provider
       value={{
         cartItems,
         addToCart,
+        increaseQuantity,
+        decreaseQuantity,
         removeFromCart,
-        updateQuantity,
+        clearCart,
         totalCount,
+        totalPrice,
         isCartOpen,
         setIsCartOpen,
       }}
@@ -66,6 +94,6 @@ export const CartProvider = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
-};
+}
 
 export const useCart = () => useContext(CartContext);
