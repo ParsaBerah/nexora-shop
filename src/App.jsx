@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CartProvider } from './context/CartContext';
+import { ToastProvider } from './context/ToastContext';
 import { products } from './data/products';
 import TopBanner from './components/layout/TopBanner';
 import Header from './components/layout/Header';
@@ -18,23 +19,18 @@ import Testimonials from './components/home/Testimonials';
 import ProductDetail from './pages/ProductDetail';
 import ShopPage from './pages/ShopPage';
 import CheckoutPage from './pages/CheckoutPage';
+import ProfilePage from './pages/ProfilePage';
 import SearchModal from './components/layout/SearchModal';
 import AuthModal from './components/layout/AuthModal';
-import { ToastProvider } from './context/ToastContext';
-import ProfilePage from './pages/ProfilePage';
-
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState(products[0]);
+  const [checkoutCoupon, setCheckoutCoupon] = useState(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
-  const goToProfile = () => {
-    setCurrentPage('profile');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-  // وضعیت لاگین کاربر همراه با ذخیره در localStorage
+  // احراز هویت با خواندن اولیه از localStorage
   const [user, setUser] = useState(() => {
     try {
       const saved = localStorage.getItem('nexora_user');
@@ -54,7 +50,6 @@ export default function App() {
     localStorage.removeItem('nexora_user');
   };
 
-  // توابع ناوبری و هدایت بین صفحات
   const goToHome = () => {
     setCurrentPage('home');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -65,7 +60,13 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const goToCheckout = () => {
+  const goToProfile = () => {
+    setCurrentPage('profile');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goToCheckout = (coupon = null) => {
+    setCheckoutCoupon(coupon);
     setCurrentPage('checkout');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -134,10 +135,12 @@ export default function App() {
 
             {currentPage === 'checkout' && (
               <CheckoutPage
+                initialCoupon={checkoutCoupon}
                 onBackToHome={goToHome}
                 onBackToShop={goToShop}
               />
             )}
+
             {currentPage === 'profile' && (
               <ProfilePage
                 user={user}
@@ -151,7 +154,6 @@ export default function App() {
           <Footer onShopClick={goToShop} />
           <CartDrawer onCheckout={goToCheckout} />
 
-          {/* مودال جستجوی آنی */}
           <SearchModal
             isOpen={isSearchOpen}
             onClose={() => setIsSearchOpen(false)}
@@ -159,7 +161,6 @@ export default function App() {
             onSelectProduct={handleProductSelect}
           />
 
-          {/* مودال ورود و مدیریت حساب کاربری */}
           <AuthModal
             isOpen={isAuthOpen}
             onClose={() => setIsAuthOpen(false)}

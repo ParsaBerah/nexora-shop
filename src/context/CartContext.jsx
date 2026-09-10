@@ -3,7 +3,6 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  // خواندن سبد اولیه از localStorage در صورت وجود
   const [cartItems, setCartItems] = useState(() => {
     try {
       const saved = localStorage.getItem('nexora_cart');
@@ -15,7 +14,6 @@ export function CartProvider({ children }) {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // ذخیره خودکار در localStorage با هر تغییر در سبد
   useEffect(() => {
     try {
       localStorage.setItem('nexora_cart', JSON.stringify(cartItems));
@@ -24,7 +22,6 @@ export function CartProvider({ children }) {
     }
   }, [cartItems]);
 
-  // افزودن به سبد خرید
   const addToCart = (product) => {
     setCartItems((prevItems) => {
       const existing = prevItems.find((item) => item.id === product.id);
@@ -46,14 +43,12 @@ export function CartProvider({ children }) {
     });
   };
 
-  // افزایش تعداد
   const increaseQuantity = (id) => {
     setCartItems((prev) =>
       prev.map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item))
     );
   };
 
-  // کاهش تعداد (اگر ۱ باشد حذف می‌شود)
   const decreaseQuantity = (id) => {
     setCartItems((prev) =>
       prev
@@ -62,17 +57,14 @@ export function CartProvider({ children }) {
     );
   };
 
-  // حذف کامل آیتم
   const removeFromCart = (id) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // خالی کردن کامل سبد
   const clearCart = () => {
     setCartItems([]);
   };
 
-  // محاسبات
   const totalCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
