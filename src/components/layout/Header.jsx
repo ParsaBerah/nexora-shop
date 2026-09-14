@@ -4,7 +4,7 @@ import { useCart } from '../../context/CartContext';
 import MobileMenu from './MobileMenu';
 import MegaMenuDesktop from './MegaMenuDesktop';
 
-export default function Header({ onLogoClick, onShopClick, onSearchClick, onAuthClick }) {
+export default function Header({ user, onLogoClick, onShopClick, onSearchClick, onAuthClick, onAboutClick }) {
   const { totalCount, setIsCartOpen } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMegaMenuHovered, setIsMegaMenuHovered] = useState(false);
@@ -71,15 +71,20 @@ export default function Header({ onLogoClick, onShopClick, onSearchClick, onAuth
               <a href="#" className="text-[14.5px] font-bold text-gray-900 hover:text-gray-500 transition">
                 راهنمای خرید
               </a>
-              <a href="#" className="text-[14.5px] font-bold text-gray-900 hover:text-gray-500 transition">
+              
+              {/* اتصال دکمه درباره ما */}
+              <button
+                onClick={onAboutClick}
+                className="text-[14.5px] font-bold text-gray-900 hover:text-gray-500 transition cursor-pointer"
+              >
                 درباره ما
-              </a>
+              </button>
             </nav>
           </div>
 
           {/* سمت چپ: ابزارها */}
           <div className="flex items-center gap-3 sm:gap-4">
-            {/* دکمه جستجو با رویداد کلیک */}
+            {/* دکمه جستجو */}
             <button 
               onClick={onSearchClick}
               className="p-2 text-black hover:bg-gray-100 rounded-full transition cursor-pointer" 
@@ -102,13 +107,17 @@ export default function Header({ onLogoClick, onShopClick, onSearchClick, onAuth
               )}
             </button>
 
-            {/* دکمه حساب کاربری با رویداد کلیک */}
+            {/* دکمه حساب کاربری */}
             <button 
               onClick={onAuthClick}
-              className="p-2 text-black hover:bg-gray-100 rounded-full transition cursor-pointer" 
+              className="p-2 text-black hover:bg-gray-100 rounded-full transition relative cursor-pointer" 
               aria-label="حساب کاربری"
             >
               <User className="w-5 h-5 stroke-[2]" />
+              {/* نمایش نقطه سبز در صورت ورود کاربر */}
+              {user && (
+                <span className="absolute bottom-1 right-1 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full"></span>
+              )}
             </button>
           </div>
 

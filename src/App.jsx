@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
 import { ToastProvider } from './context/ToastContext';
 import { products } from './data/products';
@@ -22,6 +22,9 @@ import CheckoutPage from './pages/CheckoutPage';
 import ProfilePage from './pages/ProfilePage';
 import SearchModal from './components/layout/SearchModal';
 import AuthModal from './components/layout/AuthModal';
+import AboutPage from './pages/AboutPage';
+
+
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -30,7 +33,6 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
-  // احراز هویت با خواندن اولیه از localStorage
   const [user, setUser] = useState(() => {
     try {
       const saved = localStorage.getItem('nexora_user');
@@ -39,6 +41,16 @@ export default function App() {
       return null;
     }
   });
+  const goToAbout = () => setCurrentPage('about');
+
+  // این همان کدی است که با هر بار تغییر صفحه، انیمیشن رفتن به بالا را اجرا می‌کند
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [currentPage, selectedProduct?.id]);
 
   const handleLoginSuccess = (userData) => {
     setUser(userData);
@@ -50,32 +62,19 @@ export default function App() {
     localStorage.removeItem('nexora_user');
   };
 
-  const goToHome = () => {
-    setCurrentPage('home');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const goToShop = () => {
-    setCurrentPage('shop');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const goToProfile = () => {
-    setCurrentPage('profile');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const goToHome = () => setCurrentPage('home');
+  const goToShop = () => setCurrentPage('shop');
+  const goToProfile = () => setCurrentPage('profile');
 
   const goToCheckout = (coupon = null) => {
     setCheckoutCoupon(coupon);
     setCurrentPage('checkout');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleProductSelect = (product) => {
     const found = products.find((p) => p.id === product.id) || product;
     setSelectedProduct(found);
     setCurrentPage('product');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -95,6 +94,8 @@ export default function App() {
                 setIsAuthOpen(true);
               }
             }}
+            onAboutClick={goToAbout}
+
           />
 
           <main className="flex-1 w-full">
@@ -116,7 +117,12 @@ export default function App() {
                 <Testimonials />
               </>
             )}
-
+            {currentPage === 'about' && (
+              <AboutPage
+                onBackToHome={goToHome}
+                onGoToShop={goToShop}
+              />
+            )}
             {currentPage === 'shop' && (
               <ShopPage
                 products={products}

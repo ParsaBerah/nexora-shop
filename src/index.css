@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: 'Yekan Bakh';
   src: url('/fonts/YekanBakh-Regular.ttf') format('truetype');
